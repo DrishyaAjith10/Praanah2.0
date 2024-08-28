@@ -1,33 +1,29 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('nav a');
+document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('nav a[data-page]');
     const content = document.getElementById('content');
 
+    function loadPage(url) {
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                content.innerHTML = html;
+                window.history.pushState({}, '', url);
+            })
+            .catch(err => console.warn('Error loading page:', err));
+    }
+
     links.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const page = this.getAttribute('data-page');
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = e.target.getAttribute('data-page');
             loadPage(page);
         });
     });
 
-    function loadPage(page) {
-        fetch(page)
-            .then(response => response.text())
-            .then(html => {
-                const newContent = document.createElement('div');
-                newContent.innerHTML = html;
+    window.addEventListener('popstate', () => {
+        loadPage(window.location.pathname);
+    });
 
-                // Remove existing content
-                content.classList.add('fade');
-                setTimeout(() => {
-                    content.innerHTML = newContent.querySelector('section').outerHTML;
-                    content.classList.remove('fade');
-                    content.classList.add('fade', 'in');
-                }, 500);
-            })
-            .catch(err => console.error('Error loading page:', err));
-    }
-
-    // Load the initial page
+    // Load the home page initially
     loadPage('index.html');
 });
