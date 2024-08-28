@@ -1,7 +1,30 @@
 <section id="donate">
     <div class="container">
-        <h2>Become a Donor</h2>
-        <p>Sign up to become a blood donor and help save lives.</p>
-        <a href="donor-signup.html" class="btn">Sign Up</a>
+        <h2>Donate Blood</h2>
+        <p>Your donation can save lives. Please fill out the form below to become a blood donor.</p>
+        <form>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="blood-group">Blood Group</label>
+            <select id="blood-group" name="blood-group" required>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </section>
